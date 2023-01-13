@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: decred
+  profiles:
+    default: dev

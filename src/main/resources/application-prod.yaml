@@ -1,0 +1,8 @@
+server:
+  port: ${DECRED_PORT}
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    com.palestiner.decred: INFO

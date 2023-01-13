@@ -1,0 +1,8 @@
+server:
+  port: ${DECRED_PORT:8080}
+
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web: DEBUG
+    com.palestiner.decred: DEBUG
