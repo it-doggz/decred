@@ -11,8 +11,6 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 public class Decred {
 
-    private OperationType operationType;
-
     @Id
     @Column(name = "id", nullable = false)
     private Integer id = null;
@@ -25,6 +23,9 @@ public class Decred {
 
     @Column(name = "payment_category_id")
     private Integer paymentCategoryId = null;
+
+    @Column(name = "operation_type")
+    private OperationType operationType = OperationType.CREDIT;
 
     @Enumerated(EnumType.STRING)
     public OperationType getOperationType() {
