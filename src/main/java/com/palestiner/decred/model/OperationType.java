@@ -1,6 +1,6 @@
 package com.palestiner.decred.model;
 
-/*** ENUM OPERATION TYPE CONSTS FOR DEBET-CREDIT
+/*** ENUM OPERATION TYPE CONSTS FOR DEBET-CREDIT ITEM
  * DEBET, true value, because money input you budget
  * CREDIT, false value, because money output from your budget
  */
