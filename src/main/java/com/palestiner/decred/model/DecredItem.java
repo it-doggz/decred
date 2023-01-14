@@ -3,13 +3,15 @@ package com.palestiner.decred.model;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-/*** DEBET-CREDIT MODEL CLASS
+import java.time.LocalDateTime;
+
+/*** DEBET-CREDIT ITEM MODEL CLASS
  *
  */
 @Entity
-@Table(name = "decred")
+@Table(name = "decred_items")
 @DynamicUpdate
-public class Decred {
+public class DecredItem {
 
     @Id
     @Column(name = "id", nullable = false)
@@ -26,6 +28,9 @@ public class Decred {
 
     @Column(name = "operation_type")
     private OperationType operationType = OperationType.CREDIT;
+
+    @Column(name = "creation_datetime")
+    private LocalDateTime creationRecordDateTime;
 
     @Enumerated(EnumType.STRING)
     public OperationType getOperationType() {
@@ -61,11 +66,25 @@ public class Decred {
         this.paymentVal = paymentVal;
     }
 
-    public Decred() {
+    public LocalDateTime getCreationRecordDateTime() {
+        return creationRecordDateTime;
     }
 
-    public Decred(Integer id, OperationType operationType, Integer paymentVal, Integer userId, Integer paymentCategoryId) {
+    public void setCreationRecordDateTime(LocalDateTime creationRecordDateTime) {
+        this.creationRecordDateTime = creationRecordDateTime;
+    }
+
+    public DecredItem() {
+    }
+
+    public DecredItem(Integer id,
+                      LocalDateTime creationRecordDateTime,
+                      OperationType operationType,
+                      Integer paymentVal,
+                      Integer userId,
+                      Integer paymentCategoryId) {
         this.id = id;
+        this.creationRecordDateTime = creationRecordDateTime;
         this.operationType = operationType;
         this.paymentVal = paymentVal;
         this.userId = userId;
@@ -74,8 +93,9 @@ public class Decred {
 
     @Override
     public String toString() {
-        return "Decred{" +
+        return "DecredItem{" +
                 ", id=" + id +
+                ", creationRecordDateTime=" + creationRecordDateTime +
                 "operationType=" + operationType +
                 ", paymentVal=" + paymentVal +
                 ", userId=" + userId +
