@@ -3,6 +3,7 @@ package com.palestiner.decred.model;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -24,12 +25,12 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private Set<DecredItem> decredItems;
+    private List<DecredItem> decredItems = new ArrayList<DecredItem>();
 
     public User() {
     }
 
-    public User(Integer userId, String userName, Set<DecredItem> decredItems) {
+    public User(Integer userId, String userName, List<DecredItem> decredItems) {
         this.userId = userId;
         this.userName = userName;
         this.decredItems = decredItems;
@@ -51,11 +52,11 @@ public class User {
         this.userName = userName;
     }
 
-    public Set<DecredItem> getDecredItems() {
+    public List<DecredItem> getDecredItems() {
         return decredItems;
     }
 
-    public void setDecredItems(Set<DecredItem> decredItems) {
+    public void setDecredItems(List<DecredItem> decredItems) {
         this.decredItems = decredItems;
     }
 
