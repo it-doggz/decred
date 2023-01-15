@@ -6,3 +6,10 @@ logging:
     root: DEBUG
     org.springframework.web: DEBUG
     com.palestiner.decred: DEBUG
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/decred_db
+    username: postgres
+    password: "qaz123321999"
