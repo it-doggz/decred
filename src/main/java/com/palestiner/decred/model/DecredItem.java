@@ -1,9 +1,13 @@
 package com.palestiner.decred.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /*** DEBET-CREDIT ITEM MODEL CLASS
  *
@@ -20,8 +24,10 @@ public class DecredItem {
     @Column(name = "payment_val")
     private Integer paymentVal = null;
 
-    @Column(name = "user_id")
-    private Integer userId = null;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    User user;
 
     @Column(name = "payment_category_id")
     private Integer paymentCategoryId = null;
@@ -40,14 +46,6 @@ public class DecredItem {
     @Enumerated(EnumType.STRING)
     public void setOperationType(OperationType operationType) {
         this.operationType = operationType;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Integer getPaymentCategoryId() {
@@ -74,32 +72,53 @@ public class DecredItem {
         this.creationRecordDateTime = creationRecordDateTime;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public DecredItem() {
     }
 
     public DecredItem(Integer id,
-                      LocalDateTime creationRecordDateTime,
-                      OperationType operationType,
                       Integer paymentVal,
-                      Integer userId,
-                      Integer paymentCategoryId) {
+                      User user,
+                      Integer paymentCategoryId,
+                      OperationType operationType,
+                      LocalDateTime creationRecordDateTime) {
         this.id = id;
-        this.creationRecordDateTime = creationRecordDateTime;
-        this.operationType = operationType;
         this.paymentVal = paymentVal;
-        this.userId = userId;
+        this.user = user;
         this.paymentCategoryId = paymentCategoryId;
+        this.operationType = operationType;
+        this.creationRecordDateTime = creationRecordDateTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DecredItem that = (DecredItem) o;
+        return Objects.equals(id, that.id) && Objects.equals(paymentVal, that.paymentVal) && Objects.equals(user, that.user) && Objects.equals(paymentCategoryId, that.paymentCategoryId) && operationType == that.operationType && Objects.equals(creationRecordDateTime, that.creationRecordDateTime);
+    }
+
+    @Override
+    public int hashCode() {
+      return getClass().hashCode();
     }
 
     @Override
     public String toString() {
         return "DecredItem{" +
-                ", id=" + id +
-                ", creationRecordDateTime=" + creationRecordDateTime +
-                "operationType=" + operationType +
+                "id=" + id +
                 ", paymentVal=" + paymentVal +
-                ", userId=" + userId +
+                ", user=" + user +
                 ", paymentCategoryId=" + paymentCategoryId +
+                ", operationType=" + operationType +
+                ", creationRecordDateTime=" + creationRecordDateTime +
                 '}';
     }
 }

@@ -5,6 +5,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /*** USER FOR CURRENT QUESTIONS FORM (EXAMPLE: HUSBAND, WIFE, SON)
  *
@@ -18,12 +19,21 @@ public class User {
     @Column(name = "id", nullable = false)
     private Integer userId = null;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "user_id", nullable = false)
-    private List<DecredItem> decredItems;
-
     @Column(name = "user_name")
     private String userName;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<DecredItem> decredItems;
+
+    public User() {
+    }
+
+    public User(Integer userId, String userName, Set<DecredItem> decredItems) {
+        this.userId = userId;
+        this.userName = userName;
+        this.decredItems = decredItems;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -31,14 +41,6 @@ public class User {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public List<DecredItem> getDecredItems() {
-        return decredItems;
-    }
-
-    public void setDecredItems(List<DecredItem> decredItems) {
-        this.decredItems = decredItems;
     }
 
     public String getUserName() {
@@ -49,16 +51,12 @@ public class User {
         this.userName = userName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(userId, user.userId) && Objects.equals(decredItems, user.decredItems) && Objects.equals(userName, user.userName);
+    public Set<DecredItem> getDecredItems() {
+        return decredItems;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, decredItems, userName);
+    public void setDecredItems(Set<DecredItem> decredItems) {
+        this.decredItems = decredItems;
     }
+
 }
