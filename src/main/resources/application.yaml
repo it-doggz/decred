@@ -5,3 +5,6 @@ spring:
     name: decred
   profiles:
     default: dev
+    active: dev
+  liquibase:
+    change-log: db/changelog/db.changelog-master.xml
