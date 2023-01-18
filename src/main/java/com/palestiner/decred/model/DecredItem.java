@@ -1,6 +1,7 @@
 package com.palestiner.decred.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.palestiner.decred.converters.OperationTypeConverter;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OnDelete;
@@ -29,31 +30,23 @@ public class DecredItem {
     @OnDelete(action = OnDeleteAction.CASCADE)
     User user;
 
-    @Column(name = "payment_category_id")
-    private Integer paymentCategoryId = null;
-
     @Column(name = "operation_type")
+    @Convert(converter = OperationTypeConverter.class)
     private OperationType operationType = OperationType.CREDIT;
 
     @Column(name = "creation_datetime")
     private LocalDateTime creationRecordDateTime;
 
-    @Enumerated(EnumType.STRING)
-    public OperationType getOperationType() {
-        return operationType;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_category_id", nullable = true)
+    private PaymentCategory paymentCategory;
+
+    public PaymentCategory getPaymentCategory() {
+        return paymentCategory;
     }
 
-    @Enumerated(EnumType.STRING)
-    public void setOperationType(OperationType operationType) {
-        this.operationType = operationType;
-    }
-
-    public Integer getPaymentCategoryId() {
-        return paymentCategoryId;
-    }
-
-    public void setPaymentCategoryId(Integer paymentCategoryId) {
-        this.paymentCategoryId = paymentCategoryId;
+    public void setPaymentCategory(PaymentCategory paymentCategory) {
+        this.paymentCategory = paymentCategory;
     }
 
     public Integer getPaymentVal() {
@@ -83,31 +76,26 @@ public class DecredItem {
     public DecredItem() {
     }
 
-    public DecredItem(Integer id,
-                      Integer paymentVal,
-                      User user,
-                      Integer paymentCategoryId,
-                      OperationType operationType,
-                      LocalDateTime creationRecordDateTime) {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public DecredItem(
+            Integer paymentVal,
+            User user,
+            PaymentCategory paymentCategory,
+            OperationType operationType,
+            LocalDateTime creationRecordDateTime
+    ) {
         this.paymentVal = paymentVal;
         this.user = user;
-        this.paymentCategoryId = paymentCategoryId;
+        this.paymentCategory = paymentCategory;
         this.operationType = operationType;
         this.creationRecordDateTime = creationRecordDateTime;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DecredItem that = (DecredItem) o;
-        return Objects.equals(id, that.id) && Objects.equals(paymentVal, that.paymentVal) && Objects.equals(user, that.user) && Objects.equals(paymentCategoryId, that.paymentCategoryId) && operationType == that.operationType && Objects.equals(creationRecordDateTime, that.creationRecordDateTime);
-    }
-
-    @Override
-    public int hashCode() {
-      return getClass().hashCode();
     }
 
     @Override
@@ -116,9 +104,34 @@ public class DecredItem {
                 "id=" + id +
                 ", paymentVal=" + paymentVal +
                 ", user=" + user +
-                ", paymentCategoryId=" + paymentCategoryId +
                 ", operationType=" + operationType +
                 ", creationRecordDateTime=" + creationRecordDateTime +
+                ", paymentCategory=" + paymentCategory +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DecredItem that)) return false;
+
+        if (!Objects.equals(id, that.id)) return false;
+        if (!Objects.equals(paymentVal, that.paymentVal)) return false;
+        if (!Objects.equals(user, that.user)) return false;
+        if (operationType != that.operationType) return false;
+        if (!Objects.equals(creationRecordDateTime, that.creationRecordDateTime))
+            return false;
+        return Objects.equals(paymentCategory, that.paymentCategory);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (paymentVal != null ? paymentVal.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (operationType != null ? operationType.hashCode() : 0);
+        result = 31 * result + (creationRecordDateTime != null ? creationRecordDateTime.hashCode() : 0);
+        result = 31 * result + (paymentCategory != null ? paymentCategory.hashCode() : 0);
+        return result;
     }
 }

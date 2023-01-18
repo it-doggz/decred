@@ -12,4 +12,12 @@ public enum OperationType {
     OperationType(boolean value) {
         this.value = value;
     }
+
+    public static OperationType fromValue(boolean bVal) {
+        return bVal ? DEBET : CREDIT;
+    }
+
+    public boolean getValue() {
+        return value;
+    }
 }
