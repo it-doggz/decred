@@ -1,0 +1,15 @@
+server:
+  port: ${DECRED_PORT:8080}
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    com.palestiner.decred: INFO
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/decred_db
+    username: ${DECRED_DB_USERNAME:postgres}
+    password: ${DECRED_DB_PASSWORD:qaz123321999}
