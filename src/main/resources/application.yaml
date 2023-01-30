@@ -1,7 +1,9 @@
 spring:
   jpa:
     show-sql: true
+    repositories:
+      base-package: "com.palestiner.decred.repository"
   application:
     name: decred
   profiles:
-    default: dev
+    default: korpaev
