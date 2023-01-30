@@ -15,7 +15,7 @@ public class User {
 
     @Id
     @Column(name = "id", nullable = false)
-    private Integer userId = null;
+    private Long userId = null;
 
     @Column(name = "user_name")
     private String userName;
@@ -35,11 +35,11 @@ public class User {
         this.decredItems = decredItems;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
