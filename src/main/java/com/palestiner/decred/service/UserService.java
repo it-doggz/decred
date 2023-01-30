@@ -3,6 +3,7 @@ package com.palestiner.decred.service;
 import com.palestiner.decred.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -14,8 +15,12 @@ public interface UserService {
 
     void removeUser(User user);
 
+    void removeUser(Integer userId);
+
     User updateUser(User user);
 
-    User getUserByName(String name);
+    Optional<User> getUser(String name);
+
+    Optional<User> getUser(Integer userId);
 
 }
