@@ -10,6 +10,6 @@ logging:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/decred_db
+    url: jdbc:postgresql://${HOST:localhost}:${DECRED_PORT:5432}/${DB_NAME:decred_db}
     username: ${DECRED_DB_USERNAME:postgres}
     password: ${DECRED_DB_PASSWORD:qaz123321999}

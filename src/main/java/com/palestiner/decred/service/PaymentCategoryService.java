@@ -17,7 +17,7 @@ public interface PaymentCategoryService {
 
     PaymentCategory update(PaymentCategory paymentCategory);
 
-    Optional<PaymentCategory> getPaymentCategory(String name);
+    Optional<PaymentCategory> getPaymentCategory(String paymentCategoryName);
 
     Optional<PaymentCategory> getPaymentCategory(Long paymentCategoryId);
 

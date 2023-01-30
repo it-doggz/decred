@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<User> getUser(String name) {
-        return userRepository.findByName(name);
+    public Optional<User> getUser(String userName) {
+        return userRepository.findByName(userName);
     }
 
     @Override

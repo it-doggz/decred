@@ -19,7 +19,7 @@ public interface UserService {
 
     User updateUser(User user);
 
-    Optional<User> getUser(String name);
+    Optional<User> getUser(String userName);
 
     Optional<User> getUser(Integer userId);
 
