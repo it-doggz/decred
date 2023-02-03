@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface PaymentCategoryRepository extends JpaRepository<PaymentCategory, Long> {
 
-    @Query(nativeQuery = true, value = "select name from payment_category pc where pc.name = :paymentCategoryName")
+    @Query(nativeQuery = true, value = "select * from payment_category pc where pc.name = :paymentCategoryName")
     Optional<PaymentCategory> findByName(@Param("paymentCategoryName") String paymentCategoryName);
 }

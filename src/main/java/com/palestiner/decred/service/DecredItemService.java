@@ -11,7 +11,7 @@ public interface DecredItemService {
 
     List<DecredItem> getAllItems();
 
-    List<DecredItem> getAllItems(String operationType);
+    List<DecredItem> getAllItems(Boolean operationType);
 
     void removeAllItems();
 

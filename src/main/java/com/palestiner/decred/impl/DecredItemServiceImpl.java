@@ -35,7 +35,7 @@ public class DecredItemServiceImpl implements DecredItemService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<DecredItem> getAllItems(String operationType) {
+    public List<DecredItem> getAllItems(Boolean operationType) {
 
         return decredItemRepository.findAllByOperationType(operationType);
     }

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query(nativeQuery = true, value = "select user_name from decred_user u where u.user_name = :userName")
+    @Query(nativeQuery = true, value = "select * from decred_user u where u.user_name = :userName")
     Optional<User> findByName(@Param("userName") String userName);
 
 }
