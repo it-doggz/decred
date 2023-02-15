@@ -15,6 +15,7 @@ public class User {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId = null;
 
     @Column(name = "user_name")

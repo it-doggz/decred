@@ -20,6 +20,7 @@ public class DecredItem {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id = null;
 
     @Column(name = "payment_val")

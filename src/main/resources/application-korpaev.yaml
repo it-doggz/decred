@@ -3,9 +3,9 @@ server:
 
 logging:
   level:
-    root: DEBUG
-    org.springframework.web: DEBUG
-    com.palestiner.decred: DEBUG
+    root: INFO
+    org.springframework.web: INFO
+    com.palestiner.decred: INFO
 
 spring:
   datasource:
