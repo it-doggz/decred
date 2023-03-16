@@ -31,6 +31,11 @@ public class User {
     public User() {
     }
 
+    public User(Integer userId, String userName) {
+        this.userId = userId;
+        this.userName = userName;
+    }
+
     public User(String userName, List<DecredItem> decredItems) {
         this.userName = userName;
         this.decredItems = decredItems;
