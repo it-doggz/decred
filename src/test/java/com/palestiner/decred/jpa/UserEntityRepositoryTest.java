@@ -7,19 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.*;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 class UserEntityRepositoryTest {
 
-    private final String USER_NAME = "TESTNAME";
+    private final String USER_NAME = "Big dick";
 
     @Autowired
     private UserRepository userRepository;
+
+    @Test
+    @Sql("classpath:init.sql")
+    public void findByNameIsNotEmptyTest() {
+        Optional<User> optionalUser = userRepository.findByName(USER_NAME);
+        assertFalse(optionalUser.isEmpty());
+        optionalUser.ifPresent(user -> assertThat(user.getUserName()).isEqualTo(USER_NAME));
+    }
 
     @Test
     public void findByNameIsEmptyTest() {
