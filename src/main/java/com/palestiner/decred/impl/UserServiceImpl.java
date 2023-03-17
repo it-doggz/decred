@@ -50,13 +50,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<User> getUser(String userName) {
+    public List<User> getUserByName(String userName) {
         return userRepository.findByName(userName);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<User> getUser(Integer userId) {
+    public Optional<User> getUserById(Integer userId) {
         return userRepository.findById(userId);
     }
 
