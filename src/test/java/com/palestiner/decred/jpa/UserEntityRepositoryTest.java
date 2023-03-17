@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.*;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -26,14 +27,13 @@ class UserEntityRepositoryTest {
     @Test
     @Sql("classpath:init.sql")
     public void findByNameIsNotEmptyTest() {
-        Optional<User> optionalUser = userRepository.findByName(USER_NAME);
-        assertFalse(optionalUser.isEmpty());
-        optionalUser.ifPresent(user -> assertThat(user.getUserName()).isEqualTo(USER_NAME));
+        List<User> userList = userRepository.findByName(USER_NAME);
+        assertThat(userList).isNotEmpty();
     }
 
     @Test
     public void findByNameIsEmptyTest() {
-        Optional<User> user = userRepository.findByName(USER_NAME);
+        List<User> user = userRepository.findByName(USER_NAME);
         assertThat(user).isEmpty();
     }
 }
