@@ -1,5 +1,4 @@
 package com.palestiner.decred.service;
-
 import com.palestiner.decred.model.User;
 import com.palestiner.decred.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,18 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class UserServiceTests {
@@ -50,35 +45,29 @@ public class UserServiceTests {
 
         given(this.userRepository.findById(USER_ID))
                 .willReturn(Optional.of(user));
-        Optional<User> optionalUser = userService.getUser(user.getUserId());
+        Optional<User> optionalUser = userService.getUserById(user.getUserId());
         assertFalse(optionalUser.isEmpty());
         optionalUser.ifPresent(user -> assertThat(user.getUserId()).isEqualTo(USER_ID));
     }
 
-    @DisplayName("JUnit test for getUserByName method")
+    @DisplayName("JUnit test for getUsersByName method")
     @Test
-    public void testGetUserByName() {
-        //FIXME ЧТО БУДЕТ В СЛУЧАЕ ЕСЛИ ИМЯ ОДИНАКОВОЕ?
-        //FIXME ПОЧЕМУ Optional<User> optionalUser = userService.getUser(USER_NAME); возвращает NULL?
+    public void testGetUsersByName() {
+        User usr = new User(1, "Fucking whore");
+        User usr1 = new User(2, "Fucking whore");
 
-//        User usr = new User(2, "Fucking whore");
-//
-//        given(userRepository.findAll())
-//                .willReturn(List.of(user, usr));
-//        Optional<User> optionalUser = userService.getUser(USER_NAME);
+        List<User> userList = List.of(usr, usr1);
+        doReturn(userList).when(userRepository).findByName("Fucking whore");
+        List<User> users = userService.getUserByName("Fucking whore");
 
-        given(this.userRepository.findByName(USER_NAME))
-                .willReturn(Optional.of(user));
-        Optional<User> optionalUser = userService.getUser(USER_NAME);
-        assertFalse(optionalUser.isEmpty());
-        optionalUser.ifPresent(user -> assertThat(user.getUserName()).isEqualTo(USER_NAME));
+        assertThat(users).isEqualTo(userList);
     }
 
     @DisplayName("JUnit test for addUser method")
     @Test
     public void test_When_AddUser_Then_ReturnUserObject() {
         given(userRepository.findByName(user.getUserName()))
-                .willReturn(Optional.empty());
+                .willReturn(List.of());
         assertThat(user).isNotNull();
 
         given(userRepository.save(user)).willReturn(user);
