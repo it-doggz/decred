@@ -19,8 +19,8 @@ public interface UserService {
 
     User updateUser(User user);
 
-    Optional<User> getUser(String userName);
+    List<User> getUserByName(String userName);
 
-    Optional<User> getUser(Integer userId);
+    Optional<User> getUserById(Integer userId);
 
 }
