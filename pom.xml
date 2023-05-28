@@ -13,7 +13,7 @@
 
     <groupId>com.itdoggz</groupId>
     <artifactId>decred</artifactId>
-    <version>${revision}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>decred</name>
     <description>decred</description>
     <packaging>pom</packaging>
@@ -28,6 +28,7 @@
         <module>decred-jpa</module>
         <module>decred-common</module>
         <module>decred-rest</module>
+        <module>decred-ui</module>
     </modules>
 
 </project>
